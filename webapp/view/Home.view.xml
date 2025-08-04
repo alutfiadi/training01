@@ -1,0 +1,28 @@
+<mvc:View controllerName="training01.controller.Home"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:mvc="sap.ui.core.mvc"
+>
+
+    <f:DynamicPage id="page">
+    <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="Airlines" />
+                </f:heading>
+                <f:expandedContent>
+                    <Label
+                        id="expandedLabel"
+                        text="No Filter"
+                    />
+                </f:expandedContent>
+                <f:snappedContent>
+                    <Label
+                        id="snappedLabel"
+                        text="No Filter"
+                    />
+                </f:snappedContent>
+            </f:DynamicPageTitle>
+        </f:title>
+    </f:DynamicPage>
+</mvc:View>

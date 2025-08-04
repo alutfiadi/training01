@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZOD_FLIGHT_SRV_01" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="Carrier" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CarrierId"/>
+                </Key>
+                <Property Name="CarrierId" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Airline ID" sap:updatable="false"/>
+                <Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Airline Name"/>
+                <Property Name="CurrencyCode" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Currency Code" sap:semantics="currency-code"/>
+                <Property Name="LocalCreatedBy" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Created By" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="LocalCreatedAt" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Created On" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="LocalLastChangedBy" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Changed By" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="LocalLastChangedAt" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Changed On" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="LastChangedAt" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Changed On" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="Connections" Relationship="ZOD_FLIGHT_SRV_01.CarrierToConnection" FromRole="FromRole_CarrierToConnection" ToRole="ToRole_CarrierToConnection"/>
+                <NavigationProperty Name="Flights" Relationship="ZOD_FLIGHT_SRV_01.CarrierToFlight" FromRole="FromRole_CarrierToFlight" ToRole="ToRole_CarrierToFlight"/>
+            </EntityType>
+            <EntityType Name="Connection" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CarrierId"/>
+                    <PropertyRef Name="ConnectionId"/>
+                </Key>
+                <Property Name="CarrierId" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Airline ID" sap:updatable="false"/>
+                <Property Name="ConnectionId" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Flight Number" sap:updatable="false"/>
+                <Property Name="AirportFromId" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Departure Airport"/>
+                <Property Name="AirportToId" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Destination Airport"/>
+                <Property Name="DepartureTime" Type="Edm.Time" Nullable="false" Precision="0" sap:unicode="false" sap:label="Departure" sap:filterable="false"/>
+                <Property Name="ArrivalTime" Type="Edm.Time" Nullable="false" Precision="0" sap:unicode="false" sap:label="Arrival" sap:filterable="false"/>
+                <Property Name="Distance" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Flight Distance" sap:filterable="false"/>
+                <Property Name="DistanceUnit" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Internal UoM" sap:filterable="false" sap:semantics="unit-of-measure"/>
+            </EntityType>
+            <EntityType Name="Flight" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CarrierId"/>
+                    <PropertyRef Name="ConnectionId"/>
+                    <PropertyRef Name="FlightDate"/>
+                </Key>
+                <Property Name="CarrierId" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Airline ID" sap:updatable="false"/>
+                <Property Name="ConnectionId" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Flight Number" sap:updatable="false"/>
+                <Property Name="FlightDate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Flight Date" sap:updatable="false"/>
+                <Property Name="Price" Type="Edm.Decimal" Nullable="false" Precision="17" Scale="3" sap:unicode="false" sap:unit="CurrencyCode" sap:label="Flight Price" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CurrencyCode" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Currency Code" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+                <Property Name="PlaneTypeId" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Plane Type" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SeatsMax" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Maximum Capacity" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SeatsOccupied" Type="Edm.Int32" sap:unicode="false" sap:label="Occupied Seats" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="CurrencyCodeValueHelp" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CurrencyCode"/>
+                </Key>
+                <Property Name="CurrencyCode" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="Booking" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="TravelId"/>
+                    <PropertyRef Name="BookingId"/>
+                </Key>
+                <Property Name="TravelId" Type="Edm.String" Nullable="false" MaxLength="8" sap:unicode="false" sap:label="Travel ID" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="BookingId" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Booking Number" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="BookingDate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Booking Date" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CustomerId" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="Customer ID" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CarrierId" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Airline ID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ConnectionId" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Flight Number" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="FlightDate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Flight Date" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="FlightPrice" Type="Edm.Decimal" Nullable="false" Precision="17" Scale="3" sap:unicode="false" sap:unit="CurrencyCode" sap:label="Flight Price" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CurrencyCode" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Currency Code" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+            </EntityType>
+            <Association Name="CarrierToConnection" sap:content-version="1">
+                <End Type="ZOD_FLIGHT_SRV_01.Carrier" Multiplicity="1" Role="FromRole_CarrierToConnection"/>
+                <End Type="ZOD_FLIGHT_SRV_01.Connection" Multiplicity="*" Role="ToRole_CarrierToConnection"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_CarrierToConnection">
+                        <PropertyRef Name="CarrierId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_CarrierToConnection">
+                        <PropertyRef Name="CarrierId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="CarrierToFlight" sap:content-version="1">
+                <End Type="ZOD_FLIGHT_SRV_01.Carrier" Multiplicity="1" Role="FromRole_CarrierToFlight"/>
+                <End Type="ZOD_FLIGHT_SRV_01.Flight" Multiplicity="*" Role="ToRole_CarrierToFlight"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_CarrierToFlight">
+                        <PropertyRef Name="CarrierId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_CarrierToFlight">
+                        <PropertyRef Name="CarrierId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="ZOD_FLIGHT_SRV_01_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="CarrierSet" EntityType="ZOD_FLIGHT_SRV_01.Carrier" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ConnectionSet" EntityType="ZOD_FLIGHT_SRV_01.Connection" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="FlightSet" EntityType="ZOD_FLIGHT_SRV_01.Flight" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="CurrencyCodeValueHelpSet" EntityType="ZOD_FLIGHT_SRV_01.CurrencyCodeValueHelp" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="BookingSet" EntityType="ZOD_FLIGHT_SRV_01.Booking" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="CarrierToConnectionSet" Association="ZOD_FLIGHT_SRV_01.CarrierToConnection" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="CarrierSet" Role="FromRole_CarrierToConnection"/>
+                    <End EntitySet="ConnectionSet" Role="ToRole_CarrierToConnection"/>
+                </AssociationSet>
+                <AssociationSet Name="CarrierToFlightSet" Association="ZOD_FLIGHT_SRV_01.CarrierToFlight" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="CarrierSet" Role="FromRole_CarrierToFlight"/>
+                    <End EntitySet="FlightSet" Role="ToRole_CarrierToFlight"/>
+                </AssociationSet>
+            </EntityContainer>
+            <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <atom:link rel="self" href="https://sbxs24.solco.global.nttdata.com:44300/sap/opu/odata/sap/ZOD_FLIGHT_SRV_01/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://sbxs24.solco.global.nttdata.com:44300/sap/opu/odata/sap/ZOD_FLIGHT_SRV_01/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

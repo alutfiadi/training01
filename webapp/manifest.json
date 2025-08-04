@@ -64,7 +64,7 @@
           "bundleName": "training01.i18n.i18n"
         }
       },
-      "": {
+      "flight": {
         "dataSource": "mainService",
         "preload": true,
         "settings": {}

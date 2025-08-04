@@ -1,11 +1,13 @@
-<mvc:View controllerName="training01.controller.Home"
+<mvc:View
+    controllerName="training01.controller.Home"
     xmlns="sap.m"
     xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
     xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
 >
-
     <f:DynamicPage id="page">
-    <f:title>
+        <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
                     <Title text="Airlines" />
@@ -21,9 +23,63 @@
                         id="snappedLabel"
                         text="No Filter"
                     />
-                    
                 </f:snappedContent>
             </f:DynamicPageTitle>
         </f:title>
+        <f:header>
+            <f:DynamicPageHeader>
+                <f:content>
+                    <fb:FilterBar
+                        id="filterBar"
+                        useToolbar="false"
+                        search=".onFilter"
+                        showFilterConfiguration="false"
+                        showClearOnFB="true"
+                        clear=".onClearFB"
+                        filterChange=".onFilterChange"
+                    >
+                        <fb:filterGroupItems>
+                            <fb:FilterGroupItem
+                                name="FGSearch"
+                                label="Search Carrier"
+                                groupName="Group1"
+                                visibleInFilterBar="true"
+                            >
+                                <fb:control>
+                                    <SearchField
+                                        id="searchCarrier"
+                                        showSearchButton="false"
+                                        change=".onSelectionChange"
+                                    />
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem
+                                name="Currency"
+                                label="Currency"
+                                groupName="Group1"
+                                visibleInFilterBar="true"
+                            >
+                                <fb:control>
+                                    <MultiComboBox
+                                        id="filterCurrency"
+                                        placeholder="Select Currency"
+                                        selectionChange=".onSelectionChange"
+                                        items="{
+												path: 'flight>/CurrencyCodeValueHelpSet',
+												templateShareable: true
+											}"
+                                    >
+                                        <core:Item
+                                            key="{flight>CurrencyCode}"
+                                            text="{flight>CurrencyCode}"
+                                        />
+                                    </MultiComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                        </fb:filterGroupItems>
+                    </fb:FilterBar>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
     </f:DynamicPage>
 </mvc:View>

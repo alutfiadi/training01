@@ -147,7 +147,9 @@
                 </columns>
 
                 <items>
-                    <ColumnListItem vAlign="Middle" >
+                    <ColumnListItem vAlign="Middle" 
+                        type="Navigation"
+                        press=".onCarrierDetail">
                         <cells>
                             <ObjectIdentifier title="{flight>CarrierId}" />
                             <Text text="{flight>Name}" />

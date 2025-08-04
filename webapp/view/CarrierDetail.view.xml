@@ -1,0 +1,67 @@
+<mvc:View
+    controllerName="training01.controller.CarrierDetail"
+    xmlns="sap.uxap"
+    xmlns:m="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    height="100%"
+>
+    <ObjectPageLayout
+        id="ObjectPageLayout"
+        showTitleInHeaderContent="true"
+        upperCaseAnchorBar="false"
+    >
+        <headerTitle>
+            <ObjectPageDynamicHeaderTitle>
+                <expandedHeading>
+                    <m:Title
+                        text="Carrier {flight>Name}"
+                        wrapping="true"
+                    />
+                </expandedHeading>
+
+                <snappedHeading>
+                    <m:HBox>
+                        <m:VBox>
+                            <m:Title
+                                text="Carrier {flight>Name}"
+                                wrapping="true"
+                            />
+                            <m:Label text="{flight>CarrierId}" />
+                        </m:VBox>
+                    </m:HBox>
+                </snappedHeading>
+
+                <expandedContent>
+                    <m:Label text="Expanded Header" />
+                </expandedContent>
+
+                <snappedTitleOnMobile>
+                    <m:Title text="Snapped Header" />
+                </snappedTitleOnMobile>
+
+                <actions>
+                    <m:Button
+                        id="bEdit"
+                        text="Edit"
+                        type="Emphasized"
+                        press=".onEditPress"
+                    />
+                    <m:Button
+                        id="bSave"
+                        text="Save"
+                        type="Emphasized"
+                        press=".onSavePress"
+                        visible="false"
+                    />
+                    <m:Button
+                        id="bCancel"
+                        text="Cancel"
+                        type="Default"
+                        press=".onCancelPress"
+                        visible="false"
+                    />
+                </actions>
+            </ObjectPageDynamicHeaderTitle>
+        </headerTitle>
+    </ObjectPageLayout>
+</mvc:View>

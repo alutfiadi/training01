@@ -1,0 +1,82 @@
+<mvc:View
+    controllerName="training01.controller.CarrierCreate"
+    xmlns="sap.uxap"
+    xmlns:m="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    height="100%"
+>
+    <m:Page
+        title="Create Airline"
+        class="sapUiResponsivePadding--header sapUiResponsivePadding--footer"
+    >
+        <m:content>
+            <m:VBox
+                id="formEdit"
+                visible="true"
+                fitContainer="true"
+            >
+                <f:SimpleForm
+                    id="carrierForm"
+                    labelSpanXL="3"
+                    labelSpanL="3"
+                    labelSpanM="3"
+                    labelSpanS="12"
+                    emptySpanXL="4"
+                    emptySpanL="4"
+                    emptySpanM="4"
+                    emptySpanS="0"
+                    columnsXL="1"
+                    columnsL="1"
+                    columnsM="1"
+                    adjustLabelSpan="false"
+                    singleContainerFullSize="true"
+                    editable="true"
+                >
+                    <f:content>
+                        <m:Label
+                            required="true"
+                            text="Airlines ID"
+                        />
+                        <m:Input
+                            id="CarrierId"
+                            maxLength="3"
+                            placeholder="Input Carrier ID"
+                        />
+                        <m:Label
+                            required="true"
+                            text="Airlines Name"
+                        />
+                        <m:Input
+                            id="Name"
+                            placeholder="Input Carrier Name"
+                        />
+                        <m:Label text="Currency Code" />
+                        <m:Input
+                            id="CurrencyCode"
+                            placeholder="Input Currency Code"
+                            maxLength="3"
+                        />
+                    </f:content>
+                </f:SimpleForm>
+            </m:VBox>
+        </m:content>
+        <m:footer>
+            <m:OverflowToolbar>
+                <m:ToolbarSpacer />
+                <m:Button
+                    type="Accept"
+                    text="Save"
+                    press=".onSave"
+                />
+                <m:Button
+                    type="Reject"
+                    text="Cancel"
+                    press=".onCancel"
+                />
+            </m:OverflowToolbar>
+        </m:footer>
+    </m:Page>
+</mvc:View>

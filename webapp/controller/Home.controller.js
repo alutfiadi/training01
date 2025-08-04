@@ -72,5 +72,15 @@ sap.ui.define([
             this.oTableCarrier.getBinding("items").filter(allFilter);
             this.oTableCarrier.setShowOverlay(false);
         },
+
+        /**
+         * Event handler on button Add pressed
+         * Navigate to Create Carrier Page
+         * @private
+        */
+        onCarrierAdd: function () {
+            this.getRouter().navTo("CarrierCreate");
+        },
+
     });
 });

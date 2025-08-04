@@ -147,7 +147,7 @@
                 </columns>
 
                 <items>
-                    <ColumnListItem vAlign="Middle">
+                    <ColumnListItem vAlign="Middle" >
                         <cells>
                             <ObjectIdentifier title="{flight>CarrierId}" />
                             <Text text="{flight>Name}" />

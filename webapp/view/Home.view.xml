@@ -81,5 +81,91 @@
                 </f:content>
             </f:DynamicPageHeader>
         </f:header>
+        <f:content>
+            <Table
+                id="carrierTable"
+                inset="false"
+                items="{    
+                            path: 'flight>/CarrierSet', 
+                            sorter : { path : 'CarrierId' } 
+                        }"
+                growing="true"
+                growingThreshold="20"
+            >
+                <BusyDialog id="carrierBusyDialog" />
+                <headerToolbar>
+                    <OverflowToolbar id="otbSubheader">
+                        <Title
+                            id="titleCarrier"
+                            text="Airlines"
+                            level="H2"
+                        />
+                        <ToolbarSpacer />
+                        <Button
+                            id="addButton"
+                            text="Create"
+                            type="Transparent"
+                            press=".onCarrierAdd"
+                        />
+                        <Button
+                            id="btnDelete"
+                            text="Delete"
+                            type="Reject"
+                            press=".onCarrierDelete"
+                        />
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column width="8rem">
+                        <Text text="Airlines ID" />
+                    </Column>
+                    <Column
+                        minScreenWidth="Tablet"
+                        demandPopin="true"
+                    >
+                        <Text text="Airlines" />
+                    </Column>
+                    <Column
+                        width="8rem"
+                        hAlign="Center"
+                    >
+                        <Text text="Currency" />
+                    </Column>
+                    <Column
+                        minScreenWidth="Tablet"
+                        demandPopin="true"
+                        width="12rem"
+                    >
+                        <Text text="Created By" />
+                    </Column>
+                    <Column
+                        minScreenWidth="Tablet"
+                        demandPopin="true"
+                    >
+                        <Text text="Created Date" />
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem vAlign="Middle">
+                        <cells>
+                            <ObjectIdentifier title="{flight>CarrierId}" />
+                            <Text text="{flight>Name}" />
+                            <Text text="{flight>CurrencyCode}" />
+                            <Text text="{flight>LocalCreatedBy}" />
+                            <Text
+                                text="{ 
+                                            path:'flight>LocalCreatedAt',  
+                                            type: 'sap.ui.model.odata.type.Date',
+                                            formatOptions: {  
+                                                pattern : 'dd MMM yyyy'
+                                            }
+                                        }"
+                            />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
     </f:DynamicPage>
 </mvc:View>

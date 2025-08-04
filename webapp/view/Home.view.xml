@@ -21,6 +21,7 @@
                         id="snappedLabel"
                         text="No Filter"
                     />
+                    
                 </f:snappedContent>
             </f:DynamicPageTitle>
         </f:title>

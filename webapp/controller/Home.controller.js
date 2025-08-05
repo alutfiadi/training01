@@ -3,10 +3,14 @@ sap.ui.define([
     'sap/ui/model/Filter',
     "sap/ui/model/FilterType",
     'sap/ui/model/FilterOperator',
+    "sap/m/MessageBox",
+    'sap/m/MessageToast'
 ], (Controller,
     Filter,
     FilterType,
-    FilterOperator
+    FilterOperator,
+    MessageBox,
+    MessageToast
 ) => {
     "use strict";
 
@@ -15,16 +19,16 @@ sap.ui.define([
             //Create global variables with  this.<<variablename>>
 
             //get Model Flight refere to manifest 'model' name
-            this.oModelFlight = this.getModel("flight");
+            this.modelFlight = this.getModel("flight");
 
             //set global variable with get control with this.byId("")
-            this.oView = this.getView();
-            this.oTableCarrier = this.byId('carrierTable');
-            this.oFilterBar = this.byId("filterBar");
+            this.viewHome = this.getView();
+            this.tableCarrier = this.byId('carrierTable');
+            this.filterBar = this.byId("filterBar");
             this.filterCarrierId = this.byId("filterCarrierId");
-            this.oExpandedLabel = this.byId("expandedLabel");
-            this.oSnappedLabel = this.byId("snappedLabel");
-            this.oBusyDialog = this.byId("carrierBusyDialog");
+            this.expandedLabel = this.byId("expandedLabel");
+            this.snappedLabel = this.byId("snappedLabel");
+            this.busyDialog = this.byId("carrierBusyDialog");
         },
         /**
          * Function Event on Filter 
@@ -69,8 +73,8 @@ sap.ui.define([
                 filters: keyFilters,
                 and: true,
             })
-            this.oTableCarrier.getBinding("items").filter(allFilter);
-            this.oTableCarrier.setShowOverlay(false);
+            this.tableCarrier.getBinding("items").filter(allFilter);
+            this.tableCarrier.setShowOverlay(false);
         },
 
         /**
@@ -94,5 +98,51 @@ sap.ui.define([
                 carrier: encodeURIComponent(carrierId)
             });
         },
+
+        /**
+         * Event handler on button Add pressed
+         * Navigate to Create Carrier Page
+         * @private
+        */
+        onCarrierDelete: function (oEvent) {
+            this.busyDialog.open();
+            const that = this;
+            const pathCarrier = this.byId("carrierTable").getSelectedContexts()[0].sPath;
+            let selectedItem = this.byId("carrierTable").getSelectedItem();
+            let carrierId = selectedItem.getBindingContext('flight').getProperty('CarrierId')
+
+            MessageBox.confirm("Are you sure want to delete this Carrier " + carrierId, {
+                actions: [MessageBox.Action.YES, MessageBox.Action.CANCEL],
+                emphasizedAction: MessageBox.Action.CANCEL,
+                onClose: function (sAction) {
+                    //   console.log(sAction)
+                    if (sAction == "YES") {
+                        that._deleteCarrier(pathCarrier);
+                    }
+                }
+            });
+
+        },
+        /**
+         * Function helper on delete Carrier
+         * Navigate to Create Carrier Page
+         * @private
+        */
+        _deleteCarrier: function (pathCarrier) {
+            const that = this;
+            this.modelFlight.remove(pathCarrier, {
+                method: "DELETE",
+                success: function (oData, oResponse) {
+                    console.log(oResponse)
+                    that.busyDialog.close();
+                    MessageToast.show("Success Delete Carrier");
+                },
+                error: function (oError) {
+                    console.log(oError)
+                    that.busyDialog.close();
+                    MessageToast.show("Failed Delete Carrier");
+                }
+            });
+        }
     });
 });

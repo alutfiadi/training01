@@ -91,6 +91,7 @@
                         }"
                 growing="true"
                 growingThreshold="20"
+                mode="SingleSelectLeft"
             >
                 <BusyDialog id="carrierBusyDialog" />
                 <headerToolbar>

@@ -3,10 +3,14 @@ sap.ui.define([
     'sap/ui/model/Filter',
     "sap/ui/model/FilterType",
     'sap/ui/model/FilterOperator',
+    "sap/m/MessageBox",
+    'sap/m/MessageToast'
 ], (Controller,
     Filter,
     FilterType,
-    FilterOperator
+    FilterOperator,
+    MessageBox,
+    MessageToast
 ) => {
     "use strict";
 
@@ -93,5 +97,52 @@ sap.ui.define([
                 carrier: encodeURIComponent(carrierId)
             });
         },
+
+        /**
+         * Event handler on button Add pressed
+         * Navigate to Create Carrier Page
+         * @private
+        */
+        onCarrierDelete: function (oEvent) {
+            this.busyDialog.open();
+            const that = this;
+            const pathCarrier = this.byId("carrierTable").getSelectedContexts()[0].sPath;
+            let selectedItem = this.byId("carrierTable").getSelectedItem();
+            let carrierId = selectedItem.getBindingContext('flight').getProperty('CarrierId')
+
+            MessageBox.confirm("Are you sure want to delete this Carrier " + carrierId, {
+                actions: [MessageBox.Action.YES, MessageBox.Action.CANCEL],
+                emphasizedAction: MessageBox.Action.CANCEL,
+                onClose: function (sAction) {
+                    //   console.log(sAction)
+                    if (sAction == "YES") {
+                        that._deleteCarrier(pathCarrier);
+                    }
+                }
+            });
+
+        },
+        
+        /**
+         * Function helper on delete Carrier
+         * Navigate to Create Carrier Page
+         * @private
+        */
+        _deleteCarrier: function (pathCarrier) {
+            const that = this;
+            this.modelFlight.remove(pathCarrier, {
+                method: "DELETE",
+                success: function (oData, oResponse) {
+                    console.log(oResponse)
+                    that.busyDialog.close();
+                    MessageToast.show("Success Delete Carrier");
+                },
+                error: function (oError) {
+                    console.log(oError)
+                    that.busyDialog.close();
+                    MessageToast.show("Failed Delete Carrier");
+                }
+            });
+        }
     });
 });

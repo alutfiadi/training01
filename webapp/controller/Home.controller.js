@@ -13,7 +13,6 @@ sap.ui.define([
     return Controller.extend("training01.controller.Home", {
         onInit() {
             //Create global variables with  this.<<variablename>>
-
             //get Model Flight refere to manifest 'model' name
             this.modelFlight = this.getModel("flight");
 
@@ -24,7 +23,7 @@ sap.ui.define([
             this.filterCarrierId = this.byId("filterCarrierId");
             this.expandedLabel = this.byId("expandedLabel");
             this.snappedLabel = this.byId("snappedLabel");
-            this.busyDialog  = this.byId("carrierBusyDialog");
+            this.busyDialog = this.byId("carrierBusyDialog");
         },
         /**
          * Function Event on Filter 

@@ -1,0 +1,409 @@
+<mvc:View
+    controllerName="training01.controller.CarrierDetail"
+    xmlns="sap.uxap"
+    xmlns:m="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:forms="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    height="100%"
+>
+    <ObjectPageLayout
+        id="ObjectPageLayout"
+        showTitleInHeaderContent="true"
+        upperCaseAnchorBar="false"
+    >
+        <headerTitle>
+            <ObjectPageDynamicHeaderTitle>
+                <expandedHeading>
+                    <m:Title
+                        text="Carrier {flight>Name}"
+                        wrapping="true"
+                    />
+                </expandedHeading>
+
+                <snappedHeading>
+                    <m:HBox>
+                        <m:VBox>
+                            <m:Title
+                                text="Carrier {flight>Name}"
+                                wrapping="true"
+                            />
+                            <m:Label text="{flight>CarrierId}" />
+                        </m:VBox>
+                    </m:HBox>
+                </snappedHeading>
+
+                <expandedContent>
+                    <m:Label text="Expanded Header" />
+                </expandedContent>
+
+                <snappedTitleOnMobile>
+                    <m:Title text="Snapped Header" />
+                </snappedTitleOnMobile>
+
+                <actions>
+                    <m:Button
+                        id="editButton"
+                        text="Edit"
+                        type="Emphasized"
+                        press=".onEditPress"
+                    />
+                    <m:Button
+                        id="saveButton"
+                        text="Save"
+                        type="Emphasized"
+                        press=".onSavePress"
+                        visible="false"
+                    />
+                    <m:Button
+                        id="cancelButton"
+                        text="Cancel"
+                        type="Default"
+                        press=".onCancelPress"
+                        visible="false"
+                    />
+                </actions>
+            </ObjectPageDynamicHeaderTitle>
+        </headerTitle>
+        <headerContent>
+            <m:FlexBox
+                wrap="Wrap"
+                fitContainer="true"
+            >
+                <m:Avatar
+                    id="avatar"
+                    initials="{carrier>CarrierId}"
+                    class="sapUiMediumMarginEnd"
+                    displaySize="L"
+                />
+
+                <m:VBox
+                    id="blockCarrier"
+                    class="sapUiLargeMarginEnd sapUiSmallMarginBottom"
+                    displayInline="{=%{device>/system/phone} ? false : true }"
+                    width="{=%{device>/system/phone} ? '100%' : '25%'}"
+                >
+                    <f:SimpleForm
+                        id="carrierDetailForm"
+                        editable="false"
+                        layout="ResponsiveGridLayout"
+                        labelSpanXL="3"
+                        labelSpanL="3"
+                        labelSpanM="3"
+                        labelSpanS="4"
+                        emptySpanXL="4"
+                        emptySpanL="4"
+                        emptySpanM="4"
+                        emptySpanS="0"
+                        columnsXL="1"
+                        columnsL="1"
+                        columnsM="1"
+                        adjustLabelSpan="false"
+                        singleContainerFullSize="true"
+                        class="simpleFormLeft"
+                    >
+                        <f:content>
+                            <m:Label text="Carrier ID" />
+                            <m:Input
+                                id="carrierId"
+                                value="{flight>CarrierId}"
+                                editable="false"
+                            />
+                            <m:Label text="Name" />
+                            <m:Input
+                                id="nameInput"
+                                value="{flight>Name}"
+                                editable="false"
+                            />
+                            <m:Label
+                                text="Currency"
+                                wrapping="false"
+                            />
+                            <m:Input
+                                id="currencyInput"
+                                value="{flight>CurrencyCode}"
+                                editable="false"
+                            />
+                        </f:content>
+                    </f:SimpleForm>
+                </m:VBox>
+
+                <m:VBox
+                    class="sapUiLargeMarginEnd sapUiSmallMarginBottom"
+                    width="{=%{device>/system/phone} ? '100%' : '25%'}"
+                >
+                    <f:SimpleForm
+                        id="SFCarrierCreated"
+                        editable="false"
+                        layout="ResponsiveGridLayout"
+                        labelSpanXL="3"
+                        labelSpanL="3"
+                        labelSpanM="3"
+                        labelSpanS="6"
+                        emptySpanXL="4"
+                        emptySpanL="4"
+                        emptySpanM="4"
+                        emptySpanS="0"
+                        columnsXL="1"
+                        columnsL="1"
+                        columnsM="1"
+                        adjustLabelSpan="false"
+                        singleContainerFullSize="true"
+                        class="simpleFormLeft"
+                    >
+                        <f:content>
+                            <m:Label text="Created By" />
+                            <m:Text text="{flight>LocalCreatedBy}" />
+                            <m:Label text="Created On" />
+                            <m:Text
+                                text="{
+                                            path:'flight>LocalCreatedAt',  
+                                            type: 'sap.ui.model.odata.type.Date',
+                                            formatOptions: {  
+                                                pattern : 'dd MMM yyyy'
+                                            }
+                                        }"
+                            />
+                            <m:Label text="Changed By" />
+                            <m:Text text="{flight>LocalLastChangedBy}" />
+                            <m:Label text="Changed On" />
+                            <m:Text
+                                text="{
+                                                path:'flight>LocalLastChangedAt',  
+                                                type: 'sap.ui.model.odata.type.Date',
+                                                formatOptions: {  
+                                                    pattern : 'dd MMM yyyy'
+                                                }
+                                            }"
+                            />
+                        </f:content>
+                    </f:SimpleForm>
+                </m:VBox>
+
+                <m:VBox class="sapUiLargeMarginEnd sapUiSmallMarginBottom">
+                    <m:Title
+                        text="Contact Information"
+                        class="sapUiTinyMarginBottom"
+                    />
+
+                    <m:HBox class="sapUiTinyMarginBottom">
+                        <core:Icon src="sap-icon://account" />
+                        <m:Link
+                            text=" John Miller"
+                            class="sapUiSmallMarginBegin"
+                        />
+                    </m:HBox>
+
+                    <m:HBox class="sapUiTinyMarginBottom">
+                        <core:Icon src="sap-icon://outgoing-call" />
+                        <m:Link
+                            text=" +1 234 5678"
+                            class="sapUiSmallMarginBegin"
+                        />
+                    </m:HBox>
+
+                    <m:HBox>
+                        <core:Icon src="sap-icon://email" />
+                        <m:Link
+                            text="john.miller@company.com"
+                            class="sapUiSmallMarginBegin"
+                        />
+                    </m:HBox>
+                </m:VBox>
+
+                <m:VBox class="sapUiLargeMarginEnd sapUiSmallMarginBottom">
+                    <m:Title class="sapUiTinyMarginBottom">
+                        <m:Link
+                            text="Status"
+                            press="onAnotherPageLinkPress"
+                        />
+                    </m:Title>
+                    <m:ObjectStatus
+                        text="Active"
+                        state="Success"
+                        class="sapMObjectStatusLarge"
+                    />
+                </m:VBox>
+            </m:FlexBox>
+        </headerContent>
+        <sections>
+            <ObjectPageSection
+                titleUppercase="false"
+                title="Connections"
+            >
+                <subSections>
+                    <ObjectPageSubSection
+                        title="Connections"
+                        showTitle="true"
+                    >
+                        <blocks>
+                            <m:Table
+                                id="connectionTable"
+                                class="sapUxAPObjectPageSubSectionAlignContent"
+                                width="auto"
+                                items="{Connections}"
+                            >
+                                <m:headerToolbar>
+                                    <m:OverflowToolbar>
+                                        <m:Title
+                                            text="Connections"
+                                            level="H2"
+                                        />
+                                        <m:ToolbarSpacer />
+                                        <m:SearchField
+                                            id="sfConnection"
+                                            width="17.5rem"
+                                            search=".onSearchEdit"
+                                        />
+                                    </m:OverflowToolbar>
+                                </m:headerToolbar>
+
+                                <m:columns>
+                                    <m:Column>
+                                        <m:Text text="Connection ID" />
+                                    </m:Column>
+                                    <m:Column
+                                        minScreenWidth="Tablet"
+                                        demandPopin="true"
+                                    >
+                                        <m:Text text="Airport From" />
+                                    </m:Column>
+                                    <m:Column
+                                        minScreenWidth="Tablet"
+                                        demandPopin="true"
+                                    >
+                                        <m:Text text="Airport To" />
+                                    </m:Column>
+                                    <m:Column
+                                        minScreenWidth="Tablet"
+                                        demandPopin="true"
+                                    >
+                                        <m:Text text="Flight Time" />
+                                    </m:Column>
+
+                                    <m:Column hAlign="End">
+                                        <m:Text text="Distance" />
+                                    </m:Column>
+                                </m:columns>
+
+                                <m:items>
+                                    <m:ColumnListItem>
+                                        <m:cells>
+                                            <m:Link text="{ConnectionId}" />
+                                            <m:Text text="{AirportFromId}" />
+                                            <m:Text text="{AirportToId}" />
+                                            <m:Text
+                                                text="{
+														  	path:'DepartureTime',  
+															type: 'sap.ui.model.odata.type.Time',
+															formatOptions: {  
+																pattern : 'HH:mm:ss'
+															}
+														  } - {
+														  	path:'ArrivalTime',  
+															type: 'sap.ui.model.odata.type.Time',
+															formatOptions: {  
+																pattern : 'HH:mm:ss'
+															}
+														  }"
+                                            />
+                                            <m:Text
+                                                text="{Distance} {DistanceUnit}"
+                                            />
+                                        </m:cells>
+                                    </m:ColumnListItem>
+                                </m:items>
+                            </m:Table>
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+
+            <ObjectPageSection
+                titleUppercase="false"
+                title="Flights"
+            >
+                <subSections>
+                    <ObjectPageSubSection title="Flights">
+                        <blocks>
+                            <m:Table
+                                id="flightTable"
+                                class="sapUxAPObjectPageSubSectionAlignContent"
+                                width="auto"
+                                items="{Flights}"
+                            >
+                                <m:headerToolbar>
+                                    <m:OverflowToolbar>
+                                        <m:Title
+                                            text="Flights"
+                                            level="H2"
+                                        />
+                                        <m:ToolbarSpacer />
+                                        <m:SearchField
+                                            id="sfFlight"
+                                            width="17.5rem"
+                                            search=".onSearchEdit"
+                                        />
+                                        
+                                    </m:OverflowToolbar>
+                                </m:headerToolbar>
+
+                                <m:columns>
+                                    <m:Column>
+                                        <m:Text text="Connection ID" />
+                                    </m:Column>
+                                    <m:Column
+                                        minScreenWidth="Tablet"
+                                        demandPopin="true"
+                                    >
+                                        <m:Text text="Flight Date" />
+                                    </m:Column>
+                                    <m:Column
+                                        minScreenWidth="Tablet"
+                                        demandPopin="true"
+                                    >
+                                        <m:Text text="Plane Type" />
+                                    </m:Column>
+                                    <m:Column
+                                        minScreenWidth="Tablet"
+                                        demandPopin="true"
+                                    >
+                                        <m:Text text="Seats Max / Occupied" />
+                                    </m:Column>
+                                    <m:Column hAlign="End">
+                                        <m:Text text="Price" />
+                                    </m:Column>
+                                </m:columns>
+
+                                <m:items>
+                                    <m:ColumnListItem>
+                                        <m:cells>
+                                            <m:Link text="{ConnectionId}" />
+                                            <m:Text
+                                                text="{
+														  	path:'FlightDate',  
+															type: 'sap.ui.model.odata.type.Date',
+															formatOptions: {  
+																pattern : 'dd MMM yyyy'
+															}
+													  } "
+                                            />
+                                            <m:Text text="{PlaneTypeId}" />
+                                            <m:Text
+                                                text="{SeatsOccupied} / {SeatsMax}"
+                                            />
+                                            <m:Text
+                                                text="{Price} {CurrencyCode}"
+                                            />
+                                        </m:cells>
+                                    </m:ColumnListItem>
+                                </m:items>
+                            </m:Table>
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+        </sections>
+    </ObjectPageLayout>
+</mvc:View>

@@ -103,6 +103,13 @@
           "target": [
             "CarrierCreate"
           ]
+        },
+        {
+          "name": "CarrierDetail",
+          "pattern": "CarrierDetail/{carrier}",
+          "target": [
+            "CarrierDetail"
+          ]
         }
       ],
       "targets": {
@@ -113,6 +120,10 @@
         "CarrierCreate": {
           "id": "CarrierCreate",
           "name": "CarrierCreate"
+        },
+        "CarrierDetail": {
+          "id": "CarrierDetail",
+          "name": "CarrierDetail"
         }
       }
     },

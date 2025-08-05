@@ -81,5 +81,17 @@ sap.ui.define([
             this.getRouter().navTo("CarrierCreate");
         },
 
+        /**
+         * Event handler on item pressed
+         * @param {event} Control Event
+         * Navigate to Carrier Detail
+         * @private
+        */
+        onCarrierDetail: function (event) {
+            let carrierId = event.getSource().getBindingContext('flight').getProperty('CarrierId');
+            this.getRouter().navTo("CarrierDetail", {
+                carrier: encodeURIComponent(carrierId)
+            });
+        },
     });
 });

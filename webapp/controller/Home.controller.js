@@ -123,6 +123,7 @@ sap.ui.define([
             });
 
         },
+        
         /**
          * Function helper on delete Carrier
          * Navigate to Create Carrier Page

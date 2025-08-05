@@ -15,16 +15,16 @@ sap.ui.define([
             //Create global variables with  this.<<variablename>>
 
             //get Model Flight refere to manifest 'model' name
-            this.oModelFlight = this.getModel("flight");
+            this.modelFlight = this.getModel("flight");
 
             //set global variable with get control with this.byId("")
-            this.oView = this.getView();
-            this.oTableCarrier = this.byId('carrierTable');
-            this.oFilterBar = this.byId("filterBar");
+            this.viewHome = this.getView();
+            this.tableCarrier = this.byId('carrierTable');
+            this.filterBar = this.byId("filterBar");
             this.filterCarrierId = this.byId("filterCarrierId");
-            this.oExpandedLabel = this.byId("expandedLabel");
-            this.oSnappedLabel = this.byId("snappedLabel");
-            this.oBusyDialog = this.byId("carrierBusyDialog");
+            this.expandedLabel = this.byId("expandedLabel");
+            this.snappedLabel = this.byId("snappedLabel");
+            this.busyDialog = this.byId("carrierBusyDialog");
         },
         /**
          * Function Event on Filter 
@@ -69,8 +69,8 @@ sap.ui.define([
                 filters: keyFilters,
                 and: true,
             })
-            this.oTableCarrier.getBinding("items").filter(allFilter);
-            this.oTableCarrier.setShowOverlay(false);
+            this.tableCarrier.getBinding("items").filter(allFilter);
+            this.tableCarrier.setShowOverlay(false);
         },
 
         /**
